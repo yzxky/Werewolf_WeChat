@@ -1,0 +1,30 @@
+Version 0.0
+2018年12月29日18:10:34
++ Built the frame of the game
+
+Version 1.0.1
+2019年1月11日01:40:18
++ Program able to run First Day
+2019年1月12日15:40:27
+(thanks Jim for helping debug)
++ in gamemanager.py, getOutList(self)
+  self.role2seatNoListDict[u"恶魔"] --> self.role2seatNoList(u"恶魔")
++ in pyWolfGame.py added self.hostUserName
+  self.hostUserName = itchat.search_friends()['UserName']
+  itchat.send(msgReply['Text'], msgReply['ToUserName']) -->
+  itchat.send(msgReply['Text'], 
+              msgReply['ToUserName'] if (msgReply['ToUserName'] != self.hostUserName) \
+              else 'filehelper')
+  same for msgIntro
++ in gamemanager.py added self.leave(self, seatNo), check seatNo is 0 or not
+  in gamemanager.py, getOutList(self)
+  self.alive[seatNo] = False --> self.leave(seatNo)
+2019年1月14日14:47:17
+- removed the SOLO_DEBUG in rules.json
+~ changed in gamemanager.py, __init__(self), self.SOLO_DEBUG initialized as False
++ added in stageprepare.py, msgHandle(self,msg), if mSeatNo == 0: self.gamemanager.SOLO_DEBUG = True
++ added in stageprepare.py, msgHandle(self,msg), if (not SOLO_DEBUG) and repetitive input: ...
+
+Version 1.1.0
+2019年5月23日16:27:21
+~ changed in rules.json, VERSION to 1.1.0

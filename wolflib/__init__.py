@@ -55,6 +55,11 @@ stageHunterNightBGM = get_sound("hunterNightBGM.wav")
 stageHunterNightVoice = get_sound("hunterNightVoice.wav")
 stageHunterNightEnding = get_sound("hunterNightEnding.wav")
 
+# stageGargoyleNight
+stageGargoyleNightBGM = get_sound("seerNightBGM.wav")
+stageGargoyleNightVoice = get_sound("gargoyleNightVoice.wav")
+stageGargoyleNightEnding = get_sound("gargoyleNightEnding.wav")
+
 # stageFirstDaytime
 stageFirstDaytimeBGM = get_sound("firstDaytimeBGM.wav")
 stageFirstDaytimeVoice = get_sound("firstDaytimeVoice.wav")

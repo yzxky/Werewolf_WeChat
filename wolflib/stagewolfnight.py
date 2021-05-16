@@ -25,12 +25,18 @@ class StageWolfNight():
         self.aliveBadList = []
         # number of wolfs and bads who haven't voted the kill
         self.waitingBads = 0
-        for seatNo in self.gamemanager.getBadList():
+        if self.gamemanager.WEREWOLF_KNOW_HEADWOLF:
+            self.werewolvesList = self.gamemanager.getBadList()
+        else:
+            self.werewolvesList = self.gamemanager.role2seatNoListDict[u"普通狼人"]
+
+        for seatNo in self.werewolvesList:
             if self.gamemanager.isAlive(seatNo):
-                self.aliveBadList.append(seatNo)
+                # self.aliveBadList.append(seatNo)
                 self.waitingBads += 1
         # the votes
         self.votes = {}
+
         
     def isSkipped(self):
         if self.gamemanager.N_WOLF == 0 and \
@@ -54,15 +60,13 @@ class StageWolfNight():
         msgIntroList = []
         if self.isWithoutAction():
             return msgIntroList
-        # 发放座位表
+        # 发放座位表并告知狼人如何刀人           
         seatTable = u'狼人座位表：\n'
-        for seatNo in self.aliveBadList:
+        for seatNo in self.werewolvesList:
             seatTable += u'%d %s\n' % (seatNo, self.gamemanager.getRole(seatNo))
-        for seatNo in self.aliveBadList:
+        for seatNo in self.werewolvesList:
             msgIntroList.append({'ToUserName': self.gamemanager.getUserName(seatNo),
                                  'Text': seatTable })
-        # 告知狼人如何刀人
-        for seatNo in self.aliveBadList:
             msgIntroList.append({'ToUserName': self.gamemanager.getUserName(seatNo),
                                  'Text': u'每位狼人都需要输入刀人的号码（空刀输入0），平票则空刀。请输入号码：' })
         return msgIntroList
@@ -73,7 +77,7 @@ class StageWolfNight():
         if fromSeatNo is None:
             return False
         # if fromUserName is not among living wolfs or bads
-        if fromSeatNo not in self.aliveBadList:
+        if fromSeatNo not in self.werewolvesList:
             if not self.gamemanager.SOLO_DEBUG:
                 return False
         return True
@@ -122,7 +126,7 @@ class StageWolfNight():
             self.gamemanager.wolfNightKill = kill
             # 发放刀票结果
             seatTable = u'刀票结果：\n'
-            for seatNo in self.aliveBadList:
+            for seatNo in self.werewolvesList:
                 if self.gamemanager.SOLO_DEBUG:
                     seatNo = self.gamemanager.userName2seatNo(self.gamemanager.getUserName(seatNo))
                 if self.votes[seatNo] == 0:
@@ -133,7 +137,7 @@ class StageWolfNight():
                 seatTable += u'最终结果：空刀'
             else:
                 seatTable += u'最终结果：%d号中刀' % kill
-            for seatNo in self.aliveBadList:
+            for seatNo in self.werewolvesList:
                 msgReplyList.append({'ToUserName': self.gamemanager.getUserName(seatNo),
                                      'Text': seatTable })
             self.stageCompleted = True

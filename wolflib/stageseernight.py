@@ -2,7 +2,7 @@
 
 import re
 
-from wolflib.stagewitchnight import StageWitchNight
+from wolflib.stagehunternight import StageHunterNight
 from wolflib import stageSeerNightBGM, stageSeerNightVoice, stageSeerNightEnding
 from wolflib.gamemanager import GameManager
 
@@ -92,7 +92,7 @@ class StageSeerNight():
         
     def enterNextStage(self):
         self.running = False
-        self.parent.nextStage = StageWitchNight(self.gamemanager)
+        self.parent.nextStage = StageHunterNight(self.gamemanager)
         self.parent.set_active_stage(self.parent.nextStage)
         if self.parent.nextStage.isSkipped():
             self.parent.nextStage.enterNextStage()

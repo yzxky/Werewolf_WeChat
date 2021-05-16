@@ -2,7 +2,7 @@
 
 import re
 
-from wolflib.stagewolfnight import StageWolfNight
+from wolflib.stageguardnight import StageGuardNight
 from wolflib import stagePrepareBGM, stagePrepareVoice, stagePrepareEnding
 from wolflib.gamemanager import GameManager
 
@@ -79,7 +79,7 @@ class StagePrepare():
         
     def enterNextStage(self):
         self.running = False
-        self.parent.nextStage = StageWolfNight(self.gamemanager)
+        self.parent.nextStage = StageGuardNight(self.gamemanager)
         self.parent.set_active_stage(self.parent.nextStage)
         if self.parent.nextStage.isSkipped():
             self.parent.nextStage.enterNextStage()
